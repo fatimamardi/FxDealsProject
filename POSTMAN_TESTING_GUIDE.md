@@ -316,7 +316,7 @@ curl http://localhost:8080/api/v1/deals
 1. **Organize requests in a Postman collection** to test multiple requests in sequence
 2. **Save responses** as examples for documentation
 3. **Use variables** for dealUniqueId to test duplicates easily
-4. **Check H2 Console** at http://localhost:8080/h2-console to see stored data
+4. **Check database directly** using PostgreSQL tools (pgAdmin or psql) to see stored data
 5. **View application logs** in IntelliJ console for detailed error messages
 
 ---

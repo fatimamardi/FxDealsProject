@@ -37,7 +37,7 @@ The system checks several things before accepting a deal:
 - **Java 17** - The programming language
 - **Spring Boot 3.2.0** - Makes building web APIs easier
 - **Maven** - Handles dependencies and building
-- **PostgreSQL 15** - The database (or H2 for local testing)
+- **PostgreSQL 15** - The database
 - **Docker** - For easy deployment
 - **JUnit & Mockito** - For testing
 
@@ -57,15 +57,15 @@ The Docker setup includes both the database and the application, so you don't ne
 
 ### Option 2: Running Locally
 
-If you prefer to run it on your machine:
+If you want to run it directly on your computer instead of using Docker:
 
-1. **Install Java 17** (or higher) if you don't have it
-2. **Install Maven** - Download from Apache Maven website
-3. **Set up a database** - Either PostgreSQL or use H2 (in-memory, no setup needed)
-4. **Build the project** - Run Maven build command
-5. **Start the application** - Run the Spring Boot app
+1. **Install Java 17 or newer** - You can get it from adoptium.net
+2. **Install Maven** - Download from the Apache Maven website and add it to your PATH
+3. **Install PostgreSQL** - Get it from postgresql.org, then create the database and user (see LOCAL_SETUP.md for details)
+4. **Build the project** - Run `mvn clean package` in the project folder
+5. **Start it up** - Run `mvn spring-boot:run` or use your IDE
 
-For local development, we've configured H2 database by default, so you don't need PostgreSQL unless you want it.
+The application needs PostgreSQL to be running - it won't work without it. Check out `LOCAL_SETUP.md` for step-by-step instructions if you need help.
 
 ## How to Use the API
 
@@ -112,13 +112,21 @@ For Docker deployments, environment variables in `docker-compose.yml` override t
 
 ## Common Issues and Solutions
 
-**Port 8080 already in use?** Change the port in `application.yml` or stop whatever is using that port.
+**Port 8080 already in use?** 
+- Something else is using that port. You can change the port in `application.yml` (just change `server.port: 8080` to something else like 8081), or find what's using port 8080 and stop it.
 
-**Database connection errors?** Make sure PostgreSQL is running (if using it), or switch to H2 for local testing.
+**Database connection errors?** 
+- First, make sure PostgreSQL is actually running (check Windows Services)
+- Verify the database `fxdealsdb` exists and the username/password in `application.yml` are correct
+- Sometimes it's a firewall issue blocking port 5432
 
-**Application won't start?** Check the logs - usually it's a database connection issue or missing dependency.
+**Application won't start?** 
+- Check the console logs - they usually tell you exactly what's wrong
+- Most of the time it's a database connection problem or a missing dependency
 
-**Tests failing?** Make sure H2 is available for tests (it should be included automatically).
+**Tests failing?** 
+- Tests automatically use an in-memory database (H2), so they should work without PostgreSQL
+- If tests fail, make sure Maven downloaded all dependencies - try running `mvn clean install` again
 
 ## Sample Data
 
@@ -150,16 +158,16 @@ The application logs to both console and a log file (`logs/fx-deals-warehouse.lo
 
 ## Need Help?
 
-Check the other documentation files:
-- `API_DOCUMENTATION.md` - Detailed API reference
-- `POSTMAN_TESTING_GUIDE.md` - How to test with Postman
-- `TEST_DOCKER.md` - Docker testing guide
-- `LOCAL_SETUP.md` - Local development setup
+We've got documentation for different scenarios:
+- `API_DOCUMENTATION.md` - Complete API reference with all the endpoints
+- `POSTMAN_TESTING_GUIDE.md` - Step-by-step guide for testing with Postman
+- `LOCAL_SETUP.md` - Detailed instructions for setting up on your local machine
+- `TEST_DOCKER.md` - How to test using Docker Compose
 
 ## About This Project
 
-This was developed as part of a Scrum team project for Bloomberg's FX deals analysis system. It follows best practices for enterprise Java development with proper error handling, logging, and testing.
+This was built as part of a Scrum team project for Bloomberg's FX deals analysis system. We focused on making it robust, well-tested, and easy to use. The code follows enterprise Java best practices with proper error handling, comprehensive logging, and good test coverage.
 
 ---
 
-For questions or issues, check the logs first - they usually tell you what's happening!
+**Tip:** If something's not working, check the logs first - they're usually pretty helpful in figuring out what went wrong!
