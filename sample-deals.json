@@ -1,0 +1,40 @@
+{
+  "deals": [
+    {
+      "dealUniqueId": "DEAL-2024-001",
+      "fromCurrencyIsoCode": "USD",
+      "toCurrencyIsoCode": "EUR",
+      "dealTimestamp": "2024-01-15T10:30:00",
+      "dealAmount": 1000000.50
+    },
+    {
+      "dealUniqueId": "DEAL-2024-002",
+      "fromCurrencyIsoCode": "GBP",
+      "toCurrencyIsoCode": "JPY",
+      "dealTimestamp": "2024-01-15T11:45:00",
+      "dealAmount": 500000.25
+    },
+    {
+      "dealUniqueId": "DEAL-2024-003",
+      "fromCurrencyIsoCode": "EUR",
+      "toCurrencyIsoCode": "USD",
+      "dealTimestamp": "2024-01-15T12:00:00",
+      "dealAmount": 2500000.75
+    },
+    {
+      "dealUniqueId": "DEAL-2024-004",
+      "fromCurrencyIsoCode": "AUD",
+      "toCurrencyIsoCode": "CAD",
+      "dealTimestamp": "2024-01-15T13:15:00",
+      "dealAmount": 750000.00
+    },
+    {
+      "dealUniqueId": "DEAL-2024-005",
+      "fromCurrencyIsoCode": "CHF",
+      "toCurrencyIsoCode": "USD",
+      "dealTimestamp": "2024-01-15T14:30:00",
+      "dealAmount": 1500000.50
+    }
+  ]
+}
+

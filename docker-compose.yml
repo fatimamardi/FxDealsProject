@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: fx-deals-postgres
+    environment:
+      POSTGRES_DB: fxdealsdb
+      POSTGRES_USER: fxdeals_user
+      POSTGRES_PASSWORD: fxdeals_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fxdeals_user -d fxdealsdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - fx-deals-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fx-deals-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/fxdealsdb
+      SPRING_DATASOURCE_USERNAME: fxdeals_user
+      SPRING_DATASOURCE_PASSWORD: fxdeals_password
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - fx-deals-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  fx-deals-network:
+    driver: bridge
+
