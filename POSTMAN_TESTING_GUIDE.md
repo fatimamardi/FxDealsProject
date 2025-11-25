@@ -192,16 +192,16 @@
 
 ---
 
-## Postman Collection Setup
+## Setting Up Postman (Optional)
 
-### Create a Postman Collection:
+If you want to organize your requests in Postman, you can create a collection:
 
 1. **Create New Collection:** "Bloomberg FX Deals API"
-2. **Add Environment Variables:**
+2. **Add Environment Variables (optional):**
    - `base_url`: `http://localhost:8080`
    - `api_base`: `{{base_url}}/api/v1/deals`
 
-3. **Create Requests:**
+3. **Create Requests manually:**
    - Import Single: `POST {{api_base}}`
    - Import Bulk: `POST {{api_base}}/bulk`
    - Get All: `GET {{api_base}}`
@@ -313,7 +313,7 @@ curl http://localhost:8080/api/v1/deals
 
 ## Tips
 
-1. **Use Postman's Collection Runner** to test multiple requests in sequence
+1. **Organize requests in a Postman collection** to test multiple requests in sequence
 2. **Save responses** as examples for documentation
 3. **Use variables** for dealUniqueId to test duplicates easily
 4. **Check H2 Console** at http://localhost:8080/h2-console to see stored data
