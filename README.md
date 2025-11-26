@@ -45,7 +45,6 @@ The system checks several things before accepting a deal:
 
 ### Option 1: Using Docker (Easiest Way)
 
-If you have Docker installed, this is the simplest approach:
 
 1. Make sure Docker Desktop is running
 2. Open a terminal in the project folder
@@ -110,51 +109,10 @@ Most settings are in `application.yml`. You can change:
 
 For Docker deployments, environment variables in `docker-compose.yml` override these settings.
 
-## Common Issues and Solutions
-
-**Port 8080 already in use?** 
-- Something else is using that port. You can change the port in `application.yml` (just change `server.port: 8080` to something else like 8081), or find what's using port 8080 and stop it.
-
-**Database connection errors?** 
-- First, make sure PostgreSQL is actually running (check Windows Services)
-- Verify the database `fxdealsdb` exists and the username/password in `application.yml` are correct
-- Sometimes it's a firewall issue blocking port 5432
-
-**Application won't start?** 
-- Check the console logs - they usually tell you exactly what's wrong
-- Most of the time it's a database connection problem or a missing dependency
-
-**Tests failing?** 
-- Tests automatically use an in-memory database (H2), so they should work without PostgreSQL
-- If tests fail, make sure Maven downloaded all dependencies - try running `mvn clean install` again
 
 ## Sample Data
 
 There's a `sample-deals.json` file in the project root with example deals you can use for testing. Just import it using the bulk endpoint.
-
-## Deployment
-
-For production, you can:
-- Build a JAR file and run it with Java
-- Use Docker Compose (as provided)
-- Deploy to a cloud platform
-
-The Docker setup is production-ready and includes health checks for the database.
-
-## Logging
-
-The application logs to both console and a log file (`logs/fx-deals-warehouse.log`). Logs include:
-- When deals are imported
-- Validation errors
-- Duplicate detection
-- Any unexpected errors
-
-## What Makes This Special
-
-- **No rollback policy** - Each deal is saved independently, so valid deals aren't lost if others fail
-- **Comprehensive validation** - Catches problems before they reach the database
-- **Duplicate prevention** - Both in the same batch and against existing records
-- **Detailed error messages** - Tells you exactly what went wrong
 
 ## Need Help?
 
@@ -164,10 +122,3 @@ We've got documentation for different scenarios:
 - `LOCAL_SETUP.md` - Detailed instructions for setting up on your local machine
 - `TEST_DOCKER.md` - How to test using Docker Compose
 
-## About This Project
-
-This was built as part of a Scrum team project for Bloomberg's FX deals analysis system. We focused on making it robust, well-tested, and easy to use. The code follows enterprise Java best practices with proper error handling, comprehensive logging, and good test coverage.
-
----
-
-**Tip:** If something's not working, check the logs first - they're usually pretty helpful in figuring out what went wrong!
